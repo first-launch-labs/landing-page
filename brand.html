@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>First Launch Labs — Premium MVP Agency</title>
+<meta name="description" content="We build premium MVP websites and mobile apps for shops and startups. Launch fast. Grow faster." />
+<style>
+  /* ---------- Reset & base ---------- */
+  :root{
+    --bg: #ffffff;
+    --muted: #6b7280;
+    --accent1: #4f46e5; /* indigo */
+    --accent2: #f59e0b; /* amber */
+    --card: #ffffff;
+    --glass: rgba(255,255,255,0.6);
+    --header-h: 72px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#fbfbfc 0%, #f8fafc 40%, #fff 100%);
+    color:#0f172a;
+    -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  /* ---------- layout ---------- */
+  .container{max-width:1200px;margin:0 auto;padding:0 20px}
+  header{
+    position:sticky;top:0;z-index:60;height:var(--header-h);
+    background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.72));
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid rgba(15,23,42,0.06);
+    display:flex;align-items:center;
+  }
+  .nav{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+  .brand .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800}
+  nav.links{display:flex;gap:18px;align-items:center}
+  .cta{background:linear-gradient(90deg,var(--accent1),#ec4899);color:white;padding:10px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(79,70,229,0.14)}
+  @media(max-width:880px){ nav.links{display:none} }
+
+  /* ---------- hero ---------- */
+  .hero{min-height:80vh;display:flex;align-items:center;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1fr 520px;gap:36px;align-items:center;width:100%;max-width:1200px;margin:auto;padding:36px 20px}
+  @media(max-width:980px){ .hero-grid{grid-template-columns:1fr} .hero-right{order:-1} }
+
+  .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent1),#7c3aed);color:white;font-weight:600;font-size:13px}
+  h1{font-size:44px;line-height:1.03;margin:12px 0 10px}
+  p.lead{color:var(--muted);max-width:48ch}
+
+  .stats{display:flex;gap:10px;margin-top:20px}
+  .stat{background:var(--card);padding:12px 16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.04);min-width:120px}
+
+  .actions{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+  .ghost{padding:10px 14px;border-radius:999px;border:1px solid rgba(2,6,23,0.06)}
+
+  /* prototype card (right) */
+  .mock-wrap{border-radius:24px;overflow:hidden;box-shadow:0 20px 50px rgba(2,6,23,0.12);border:1px solid rgba(2,6,23,0.04);background:linear-gradient(180deg,#fff,#fbfbff)}
+  .mock-top{height:260px;overflow:hidden}
+  .mock-img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ---------- Portfolio & Apps ---------- */
+  section{padding:72px 0}
+  h2{font-size:28px;margin:0 0 18px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:640px){ .grid-3{grid-template-columns:1fr} }
+
+  .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(2,6,23,0.06);border:1px solid rgba(2,6,23,0.04)}
+  .card .meta{padding:14px}
+  .tag{display:inline-block;background:rgba(79,70,229,0.06);color:var(--accent1);padding:6px 10px;border-radius:999px;font-weight:600;font-size:13px}
+
+  /* App showcase frames */
+  .demo-row{display:flex;gap:20px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+  .web-frame{flex:1;min-width:320px;max-width:640px;background:#fff;border-radius:14px;border:1px solid rgba(2,6,23,0.04);box-shadow:0 12px 40px rgba(2,6,23,0.06);overflow:hidden}
+  .browser-top{height:44px;background:#f3f4f6;display:flex;align-items:center;padding:8px 12px;gap:8px}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .dot.red{background:#ff5f57}
+  .dot.yellow{background:#ffbd2e}
+  .dot.green{background:#28c840}
+  .browser-url{flex:1;font-size:13px;color:var(--muted);padding-left:8px}
+  .web-snap{height:420px;background:linear-gradient(180deg,#fff,#f6f7fb);padding:18px;display:flex;flex-direction:column;gap:12px}
+
+  /* faux site inside web-snap */
+  .site-header{display:flex;align-items:center;justify-content:space-between}
+  .site-title{font-weight:700}
+  .site-cta{background:linear-gradient(90deg,var(--accent1),#ec4899);color:white;padding:8px 12px;border-radius:8px}
+  .hero-block{height:200px;border-radius:10px;background:linear-gradient(180deg,#eef2ff,#fff);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+  .site-row{display:flex;gap:10px}
+
+  /* iPhone Dynamic Island frame */
+  .phone-wrap{width:320px;flex:0 0 320px;display:flex;flex-direction:column;gap:12px;align-items:center;position:relative; z-index:10;}
+  .iphone-frame{width:220px;height:460px;border-radius:36px;background:#000;padding:12px;position:relative;box-shadow:0 20px 60px rgba(2,6,23,0.12)}
+  .dynamic-island{
+    position:absolute;
+    top:14px;
+    left:50%;
+    transform: translateX(-50%);
+    width:110px;
+    height:34px;
+    border-radius:17px;
+    background:#050507;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    z-index:20;
+  }
+  .phone-screen{width:100%;height:100%;background:#fff;border-radius:18px;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:8px}
+  .ios-status{height:14px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);padding:0 6px}
+  .app-hero{flex:1;border-radius:12px;background:linear-gradient(180deg,#fff,#f3f4f6);display:flex;flex-direction:column;padding:12px;gap:8px}
+  .app-icons{display:flex;gap:8px;flex-wrap:wrap}
+  .app-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#ffd;,#eee);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
+
+  /* process / steps */
+  .steps{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+  .step{width:190px;background:linear-gradient(180deg,#fff,#fbfbff);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.06);text-align:center}
+
+  /* testimonials / contact */
+  .test-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:880px){ .test-grid{grid-template-columns:1fr} .demo-row{flex-direction:column;align-items:center} .phone-wrap{flex:0 0 auto} }
+
+  /* footer */
+  footer{padding:28px 0;text-align:center;color:#94a3b8}
+
+  /* ---------- SKY overlay: parallax layers & rocket ---------- */
+  .sky {
+    pointer-events:none;
+    position:fixed;left:0;top:0;right:0;height:100vh;z-index:0;overflow:hidden;
+  }
+  .parallax-layer{position:absolute;left:0;right:0;top:0;height:200vh;transform:translateZ(0)}
+  /* stars (farthest) */
+  .stars-1{background:
+    radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.9) 50%, transparent 51%),
+    radial-gradient(2px 2px at 35% 60%, rgba(255,255,255,0.85) 50%, transparent 51%),
+    radial-gradient(2px 2px at 70% 10%, rgba(255,255,255,0.85) 50%, transparent 51%),
+    radial-gradient(2px 2px at 88% 70%, rgba(255,255,255,0.8) 50%, transparent 51%);
+    opacity:0.7;filter:blur(0.2px);
+  }
+  /* planet Earth */
+  .earth {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    top: 40%;
+    left: 20%;
+    box-shadow: 0 0 20px rgba(0, 128, 255, 0.6);
+    background:
+      radial-gradient(circle at 40% 40%, #6ec1e4 60%, #2c83c7 90%);
+  }
+  .earth::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 40% 40%, #a3d1ff 50%, transparent 80%),
+      radial-gradient(circle at 60% 60%, #4c9ae8 60%, transparent 70%);
+    mix-blend-mode: screen;
+  }
+  /* planet Moon */
+  .moon {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    top: 30%;
+    left: 60%;
+    background: radial-gradient(circle at center, #bbb, #888);
+    box-shadow: 0 0 8px rgba(200,200,200,0.8);
+  }
+
+  /* rocket styles */
+  .rocket {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 0;
+    left: 0;
+    transform-origin: center center;
+    filter: drop-shadow(0 0 2px rgba(255, 100, 100, 0.7));
+  }
+  .rocket svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* small helpers */
+  .muted{color:var(--muted)} .center{text-align:center}
+</style>
+</head>
+<body>
+
+  <!-- Parallax background layers -->
+  <!-- <div class="sky" aria-hidden="true">
+    <div class="parallax-layer stars-1" id="stars1"></div>
+    <div class="parallax-layer" id="planets"> -->
+      <!-- replaced planets with custom earth and moon -->
+      <!-- <div class="earth"></div>
+      <div class="moon"></div>
+      <div class="rocket" id="rocket">
+        <svg viewBox="0 0 64 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" >
+          <defs>
+            <linearGradient id="g2" x1="0" x2="1">
+              <stop offset="0" stop-color="#4f46e5" />
+              <stop offset="1" stop-color="#f59e0b" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(4,4)">
+            <path d="M28 0 C42 24 54 30 56 50 C56 70 42 88 28 88 C14 88 0 70 0 50 C2 30 14 24 28 0 Z" fill="url(#g2)"/>
+            <circle cx="28" cy="34" r="8" fill="#fff" opacity="0.95"/>
+            <path d="M2 58 L-12 76 L10 66 Z" fill="#ec4899"/>
+            <path d="M54 58 L66 76 L44 66 Z" fill="#f97316"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">🚀</div>
+        <div>
+          <div>First Launch Labs</div>
+          <div style="font-size:12px;color:var(--muted)">branch: launching-rocket</div>
+        </div>
+      </div>
+
+      <nav class="links">
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#apps" class="nav-link">Apps</a>
+        <a href="#process" class="nav-link">Process</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a class="cta" href="#contact">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-grid container">
+      <div>
+        <span class="eyebrow">Launch your MVP</span>
+        <h1>Beautiful MVP websites & mobile apps — built fast, built right.</h1>
+        <p class="lead">We help shops and startups take the step online — premium visuals, fast delivery, and conversion-first engineering.</p>
+
+        <div class="stats" style="margin-top:18px">
+          <div class="stat"><div style="font-weight:700;font-size:18px">128+</div><div class="muted" style="font-size:13px">Projects</div></div>
+          <div class="stat"><div style="font-weight:700;font-size:18px">94</div><div class="muted" style="font-size:13px">Clients</div></div>
+          <div class="stat"><div style="font-weight:700;font-size:18px">9</div><div class="muted" style="font-size:13px">Avg days</div></div>
+        </div>
+
+        <div class="actions">
+          <a class="cta" href="#contact">Start brief</a>
+          <a class="ghost" href="#work">See portfolio</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="mock-wrap">
+          <div class="mock-top">
+            <!-- embedded placeholder website screenshot (SVG like screenshot so offline) -->
+            
+              <img src="/Users/anshumansingh/Desktop/placeholder.png" class="mock-img"/>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- List of projects -->
+   <!-- Previous Works Section -->
+<section id="previous-works" style="padding:72px 0; background:#fafaff;">
+  <div class="container">
+    <h2 style="margin-bottom:24px; text-align:center; color:#4f46e5;">Our Works</h2>
+    <p style="text-align:center; color:#6b7280; max-width:600px; margin: 0 auto 36px;">
+      A selection of websites and mobile apps we've built for our clients.
+    </p>
+
+    <div class="works-scroll" tabindex="0" aria-label="Scrollable list of previous works" style="display:flex; gap:24px; overflow-x:auto; padding-bottom:12px; scroll-behavior:smooth;">
+      
+      <!-- Work Card 1 -->
+      <div class="work-card" style="flex: 0 0 300px; border-radius:16px; box-shadow: 0 8px 24px rgba(79,70,229,0.1); background:#fff; cursor:pointer; transition:background 0.3s;">
+        <div class="macbook-frame" style="position:relative; width:100%; padding-top:66.6%; overflow:hidden; border-radius:12px; box-shadow: 0 10px 30px rgba(79,70,229,0.15); margin-bottom:12px;">
+          <img src="https://knowledge.hubspot.com/hubfs/bakery-websites-15-20241112-4476991.webp" alt="Desktop website preview for project 1" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border-radius:12px;">
+        </div>
+        <!-- <div class="iphone-frame" style="position:relative; width:140px; height:300px; margin: 0 auto; border-radius:36px; box-shadow: 0 8px 24px rgba(79,70,229,0.15); overflow:hidden;">
+          <img src="https://i.imgur.com/6ZqJ9ny.png" alt="Mobile app preview for project 1" style="width:100%; height:100%; object-fit:cover; border-radius:36px;">
+        </div> -->
+      </div>
+
+      <!-- Work Card 2 -->
+      <div class="work-card" style="flex: 0 0 300px; border-radius:16px; box-shadow: 0 8px 24px rgba(79,70,229,0.1); background:#fff; cursor:pointer; transition:background 0.3s;">
+        <div class="macbook-frame" style="position:relative; width:100%; padding-top:66.6%; overflow:hidden; border-radius:12px; box-shadow: 0 10px 30px rgba(79,70,229,0.15); margin-bottom:12px;">
+          <img src="https://knowledge.hubspot.com/hubfs/bakery-websites-27-20241112-9279749.webp" alt="Desktop website preview for project 2" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border-radius:12px;">
+        </div>
+        <!-- <div class="iphone-frame" style="position:relative; width:140px; height:300px; margin: 0 auto; border-radius:36px; box-shadow: 0 8px 24px rgba(79,70,229,0.15); overflow:hidden;">
+          <img src="https://i.imgur.com/NRXw8rk.png" alt="Mobile app preview for project 2" style="width:100%; height:100%; object-fit:cover; border-radius:36px;">
+        </div> -->
+      </div>
+
+      <!-- Work Card 3 -->
+      <div class="work-card" style="flex: 0 0 300px; border-radius:16px; box-shadow: 0 8px 24px rgba(79,70,229,0.1); background:#fff; cursor:pointer; transition:background 0.3s;">
+        <div class="macbook-frame" style="position:relative; width:100%; padding-top:66.6%; overflow:hidden; border-radius:12px; box-shadow: 0 10px 30px rgba(79,70,229,0.15); margin-bottom:12px;">
+          <img src="https://knowledge.hubspot.com/hubfs/bakery-websites-10-20241112-1559145.webp" alt="Desktop website preview for project 3" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border-radius:12px;">
+        </div>
+        <!-- <div class="iphone-frame" style="position:relative; width:140px; height:300px; margin: 0 auto; border-radius:36px; box-shadow: 0 8px 24px rgba(79,70,229,0.15); overflow:hidden;">
+          <img src="https://i.imgur.com/NlfR2bH.png" alt="Mobile app preview for project 3" style="width:100%; height:100%; object-fit:cover; border-radius:36px;">
+        </div> -->
+      </div>
+
+      <!-- Work Card 4 -->
+      <div class="work-card" style="flex: 0 0 300px; border-radius:16px; box-shadow: 0 8px 24px rgba(79,70,229,0.1); background:#fff; cursor:pointer; transition:background 0.3s;">
+        <div class="macbook-frame" style="position:relative; width:100%; padding-top:66.6%; overflow:hidden; border-radius:12px; box-shadow: 0 10px 30px rgba(79,70,229,0.15); margin-bottom:12px;">
+          <img src="https://i.imgur.com/fQjXmDm.png" alt="Desktop website preview for project 4" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border-radius:12px;">
+        </div>
+        <!-- <div class="iphone-frame" style="position:relative; width:140px; height:300px; margin: 0 auto; border-radius:36px; box-shadow: 0 8px 24px rgba(79,70,229,0.15); overflow:hidden;">
+          <img src="https://i.imgur.com/nwxVTTx.png" alt="Mobile app preview for project 4" style="width:100%; height:100%; object-fit:cover; border-radius:36px;">
+        </div> -->
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #previous-works .works-scroll::-webkit-scrollbar {
+    height: 8px;
+  }
+  #previous-works .works-scroll::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+  }
+  #previous-works .works-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #4f46e5, #ec4899);
+    border-radius: 4px;
+  }
+  .work-card:hover {
+    background: linear-gradient(90deg, #4f46e5, #ec4899);
+    box-shadow: 0 12px 36px rgba(79,70,229,0.4);
+  }
+  .work-card:hover img {
+    filter: brightness(0.85);
+    transition: filter 0.3s;
+  }
+</style>
+
+
+
+  <!-- iPhone with Dynamic Island
+  <section style="background:#f9fafb;display:flex;justify-content:center;padding-bottom:72px;">
+    <div class="phone-wrap" aria-label="iPhone mockup with Dynamic Island">
+      <div class="iphone-frame" role="img" aria-label="iPhone 14 Pro mockup">
+        <div class="dynamic-island" aria-label="Dynamic Island"></div>
+        <div class="phone-screen">
+          <div class="ios-status" aria-label="iOS status bar">
+            <div>9:41 AM</div>
+            <div>100% 🔋</div>
+          </div>
+          <div class="app-hero" aria-label="App screen content">
+            <h3>Your App</h3>
+            <p style="color:#6b7280; font-size:14px;">Welcome to your MVP with a Dynamic Island at top.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- rocket animation -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
+
+  const rocket = document.getElementById('rocket');
+  const earth = document.querySelector('.earth');
+  const moon = document.querySelector('.moon');
+
+  function getCenter(el) {
+    const rect = el.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2 + window.scrollX,
+      y: rect.top + rect.height / 2 + window.scrollY
+    };
+  }
+
+  function createOrbitPath() {
+    const earthCenter = getCenter(earth);
+    const moonCenter = getCenter(moon);
+
+    // Simple linear path from earth to moon with some curve
+    return [
+      { x: earthCenter.x, y: earthCenter.y },
+      { x: (earthCenter.x + moonCenter.x) / 2, y: earthCenter.y - 100 }, // curve top point
+      { x: moonCenter.x, y: moonCenter.y }
+    ];
+  }
+
+  function setupScrollAnimation() {
+    const pathPoints = createOrbitPath();
+
+    gsap.set(rocket, {
+      x: pathPoints[0].x,
+      y: pathPoints[0].y,
+      rotation: 0,
+      transformOrigin: "50% 50%"
+    });
+
+    gsap.to(rocket, {
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1,
+        // markers: true, // uncomment for debugging
+      },
+      duration: 1,
+      ease: "none",
+      motionPath: {
+        path: pathPoints,
+        curviness: 1.5,
+        autoRotate: true,
+        alignOrigin: [0.5, 0.5],
+      }
+    });
+  }
+
+  window.addEventListener("load", () => {
+    setupScrollAnimation();
+  });
+
+  window.addEventListener("resize", () => {
+    // On resize, reset and re-setup scroll animation
+    gsap.killTweensOf(rocket);
+    setupScrollAnimation();
+  });
+</script> -->
+
+<section id="pricing" style="padding: 60px 20px; background: #fff;">
+  <div class="container" style="max-width: 960px; margin: auto;">
+    <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 40px; text-align: center; background: linear-gradient(90deg, #6b46c1 0%, #4338ca 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      Pricing Plans
+    </h2>
+    <div id="plans" style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+      
+      <div class="plan" tabindex="0" style="flex: 1 1 280px; background: #f9fafb; border-radius: 12px; box-shadow: 0 6px 18px rgb(0 0 0 / 0.06); padding: 32px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
+        <h3 style="margin: 0 0 16px; font-weight: 700; color: #6b46c1;">Basic</h3>
+        <p style="font-size: 28px; font-weight: 800; margin: 0 0 24px; color: #1f2937;">₹15,000<span style="font-weight: 400; font-size: 16px;">/ project</span></p>
+        <ul style="list-style: none; padding: 0; margin: 0 0 32px; width: 100%; color: #6b7280;">
+          <li>✓ Simple static website</li>
+          <li>✓ Mobile responsive</li>
+          <li>✓ 1 revision cycle</li>
+          <li>✓ Delivery in 7 days</li>
+        </ul>
+        <button style="background: #6b46c1; color: white; border: none; padding: 12px 24px; border-radius: 999px; cursor: pointer; font-weight: 700; width: 100%;" disabled>
+          Select Basic
+        </button>
+      </div>
+      
+      <div class="plan" tabindex="0" style="flex: 1 1 280px; background: #f9fafb; border-radius: 12px; box-shadow: 0 6px 18px rgb(0 0 0 / 0.06); padding: 32px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
+        <h3 style="margin: 0 0 16px; font-weight: 700; color: #6b46c1;">Standard</h3>
+        <p style="font-size: 28px; font-weight: 800; margin: 0 0 24px; color: #1f2937;">₹35,000<span style="font-weight: 400; font-size: 16px;">/ project</span></p>
+        <ul style="list-style: none; padding: 0; margin: 0 0 32px; width: 100%; color: #6b7280;">
+          <li>✓ Dynamic website or mobile app</li>
+          <li>✓ Responsive & cross-browser</li>
+          <li>✓ 3 revision cycles</li>
+          <li>✓ Delivery in 14 days</li>
+        </ul>
+        <button style="background: #6b46c1; color: white; border: none; padding: 12px 24px; border-radius: 999px; cursor: pointer; font-weight: 700; width: 100%;" disabled>
+          Select Standard
+        </button>
+      </div>
+      
+      <div class="plan" tabindex="0" style="flex: 1 1 280px; background: #f9fafb; border-radius: 12px; box-shadow: 0 6px 18px rgb(0 0 0 / 0.06); padding: 32px; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease;">
+        <h3 style="margin: 0 0 16px; font-weight: 700; color: #6b46c1;">Premium</h3>
+        <p style="font-size: 28px; font-weight: 800; margin: 0 0 24px; color: #1f2937;">₹60,000<span style="font-weight: 400; font-size: 16px;">/ project</span></p>
+        <ul style="list-style: none; padding: 0; margin: 0 0 32px; width: 100%; color: #6b7280;">
+          <li>✓ Complex web & mobile apps</li>
+          <li>✓ API integrations & custom features</li>
+          <li>✓ Unlimited revisions</li>
+          <li>✓ Delivery in 30 days</li>
+        </ul>
+        <button style="background: #6b46c1; color: white; border: none; padding: 12px 24px; border-radius: 999px; cursor: pointer; font-weight: 700; width: 100%;" disabled>
+          Select Premium
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const plans = document.querySelectorAll('.plan');
+
+    plans.forEach(plan => {
+      plan.addEventListener('click', () => {
+        plans.forEach(p => {
+          p.style.background = '#f9fafb';
+          p.style.color = '#1f2937';
+          p.querySelector('h3').style.color = '#6b46c1';
+          p.querySelector('p').style.color = '#1f2937';
+          p.querySelector('ul').style.color = '#6b7280';
+          p.querySelector('button').style.background = '#6b46c1';
+          p.querySelector('button').style.color = 'white';
+        });
+
+        // Highlight clicked plan
+        plan.style.background = 'linear-gradient(90deg, #6b46c1 0%, #4338ca 100%)';
+        plan.style.color = 'white';
+        plan.querySelector('h3').style.color = 'white';
+        plan.querySelector('p').style.color = 'white';
+        plan.querySelector('ul').style.color = 'rgba(255,255,255,0.85)';
+        plan.querySelector('button').style.background = 'white';
+        plan.querySelector('button').style.color = '#4338ca';
+      });
+    });
+  </script>
+</section>
+</script>
+</body>
+</html>
